@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar de Ingresos | Encuentra tu Segunda Fuente de Ingresos Viable</title>
+    <meta name="description" content="Calculadora que cruza tus recursos con 15 caminos y te entrega una ruta posible para empezar hoy. Deja de temer depender de un solo sueldo.">
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- BLOQUE 1: HERO SECTION -->
+    <header class="hero-section">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+                    <span>RADAR DE INGRESOS</span>
+                </div>
+            </nav>
+
+            <div class="hero-content">
+                <div class="hero-text-area">
+                    <span class="hero-badge">MÉTODO COMPATIBLE 100% ONLINE</span>
+                    <h1 class="hero-title">Deja de temer depender de un solo sueldo</h1>
+                    <h2 class="hero-subtitle">Calculadora que cruza tus recursos con 15 caminos y te entrega una ruta posible para empezar hoy.</h2>
+                    
+                    <ul class="hero-benefits">
+                        <li>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Elimina la <strong>Parálisis por Sobreinformación</strong> que te hace saltar de idea en idea sin ganar un centavo.</span>
+                        </li>
+                        <li>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>El <strong>orden exacto</strong> para construir una segunda fuente sin renunciar a tu trabajo.</span>
+                        </li>
+                        <li>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span><strong>Diagnóstico completo en 5 minutos</strong>, sin investigar en foros, sin comprar cursos vacíos.</span>
+                        </li>
+                        <li>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>El plan de <strong>30 días</strong> para pasar de la teoría a tu primer activo real.</span>
+                        </li>
+                    </ul>
+
+                    <div class="hero-pricing-box">
+                        <div class="price-comparison">
+                            <span class="old-price">De $84</span>
+                            <span class="arrow-right">→</span>
+                            <span class="new-price">por $19</span>
+                        </div>
+                        <p class="price-copy">Menos de lo que gastas en café para dejar de saltar entre videos y empezar a construir seguridad.</p>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="#offer-section" class="btn btn-primary btn-pulse scroll-to">
+                            DESCUBRIR MI RUTA MÁS VIABLE
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual-area">
+                    <!-- Interactive Mini-Simulator Preview Box -->
+                    <div class="interactive-preview-card">
+                        <div class="card-header">
+                            <div class="indicator-red"></div>
+                            <span>DEMO EN VIVO: RADAR RÁPIDO</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="demo-intro">¿Qué presupuesto y tiempo tienes hoy? Simula tu compatibilidad:</p>
+                            
+                            <div class="form-group">
+                                <label for="budget-slider">Presupuesto Inicial disponible: <span id="budget-val" class="highlight-val">$100 USD</span></label>
+                                <input type="range" id="budget-slider" min="0" max="1000" step="50" value="100" class="slider">
+                                <div class="slider-labels">
+                                    <span>$0 (Bajo Costo)</span>
+                                    <span>$1,000+</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="time-slider">Tiempo libre al día: <span id="time-val" class="highlight-val">2 horas</span></label>
+                                <input type="range" id="time-slider" min="1" max="8" step="1" value="2" class="slider">
+                                <div class="slider-labels">
+                                    <span>1 hr</span>
+                                    <span>8 hrs</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Experiencia en Negocios Digitales:</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="experience" value="no" checked>
+                                        <span>Ninguna</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="experience" value="yes">
+                                        <span>Algo</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="button" id="btn-simulate" class="btn-simulate-style">CALCULAR MI RUTA DE COMPATIBILIDAD</button>
+
+                            <div id="sim-result" class="sim-result-box hidden">
+                                <div class="result-divider"></div>
+                                <h4 class="result-title">Ruta Recomendada Encontrada:</h4>
+                                <div class="result-badge" id="result-name">Afiliación de Bajo Costo + IA</div>
+                                <div class="result-meta">
+                                    <div><strong>Dificultad:</strong> <span id="result-diff">Baja</span></div>
+                                    <div><strong>Plazo Estimado:</strong> <span id="result-time">15 - 20 días</span></div>
+                                </div>
+                                <p class="result-desc" id="result-text">Una opción ideal donde utilizas software gratuito de inteligencia artificial para crear recursos digitales sin invertir en inventario.</p>
+                                <a href="#offer-section" class="sim-cta scroll-to">Desbloquear Plan Paso a Paso Completo →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BLOQUE 2: CALIFICACIÓN DEL PÚBLICO -->
+    <section class="qualification-section bg-contrast">
+        <div class="container narrow">
+            <h2 class="section-title text-center">¿ESTO ES PARA MÍ?</h2>
+            
+            <ul class="symptoms-list">
+                <li>
+                    <div class="symptom-icon-box">
+                        <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <span>Sientes que si dejas de trabajar unos días, el dinero se detiene contigo.</span>
+                </li>
+                <li>
+                    <div class="symptom-icon-box">
+                        <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <span>Saltas de una idea de negocio a otra sin llegar nunca al primer resultado.</span>
+                </li>
+                <li>
+                    <div class="symptom-icon-box">
+                        <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <span>Compraste cursos de emprendimiento y terminaste con más teoría que acción.</span>
+                </li>
+                <li>
+                    <div class="symptom-icon-box">
+                        <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <span>No sabes cuánto cuesta empezar ni qué retorno real puedes esperar.</span>
+                </li>
+            </ul>
+
+            <div class="qualification-footer text-center">
+                <span class="warning-tag">SI RESPONDISTE QUE SÍ A 3 O MÁS, SIGUE LEYENDO.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 3: CONEXIÓN CON EL PROBLEMA -->
+    <section class="problem-section bg-light">
+        <div class="container narrow text-center">
+            <h2 class="section-title-visceral">ESA SENSACIÓN DE QUE UN SOLO SUELDO YA NO ALCANZA</h2>
+            
+            <div class="problem-paragraphs">
+                <p>Trabajas todo el mes y sigues a un imprevisto de quedar en cero. Sabes que necesitas otra fuente, pero no sabes por dónde empezar.</p>
+                <p>La <strong>Parálisis por Sobreinformación</strong> te llena de videos, promesas y rutas incompatibles. Investigas durante semanas, dudas de todo y abandonas antes del primer intento.</p>
+                <p>Ya probaste guías y cursos. No fallaste por falta de voluntad. Fallaron porque te dieron más teoría, no una opción compatible con tu bolsillo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 4: PRESENTACIÓN DE LA SOLUCIÓN Y EL MECANISMO -->
+    <section class="solution-section bg-white border-top">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-content">
+                    <span class="section-badge">NUESTRO MECANISMO</span>
+                    <h2 class="section-title">Cómo Funciona: Matriz de Compatibilidad Financiera</h2>
+                    <h3 class="section-subtitle-small">Distinto de un curso teórico. Sin confusión.</h3>
+                    
+                    <div class="mechanism-steps">
+                        <div class="mech-step">
+                            <div class="mech-number">1</div>
+                            <p>Ingresas tu presupuesto, tiempo libre y nivel de experiencia en 5 minutos.</p>
+                        </div>
+                        <div class="mech-step">
+                            <div class="mech-number">2</div>
+                            <p>El sistema cruza tus datos con 15 caminos y descarta los que no encajan con tus recursos.</p>
+                        </div>
+                        <div class="mech-step">
+                            <div class="mech-number">3</div>
+                            <p>Recibes tu ruta recomendada y un plan de acción listo. Sin adivinar. Sin horas de estudio.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="solution-mockup-area">
+                    <div class="mockup-display">
+                        <!-- Custom designed graphic panel showing matching algorithm mockup -->
+                        <div class="dashboard-mockup">
+                            <div class="dash-top">
+                                <span class="dash-dot"></span>
+                                <span class="dash-dot"></span>
+                                <span class="dash-dot"></span>
+                                <span class="dash-title">Comparador de 15 Caminos</span>
+                            </div>
+                            <div class="dash-main">
+                                <div class="dash-chart-circle">
+                                    <svg viewBox="0 0 36 36" class="circular-chart">
+                                      <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                      <path class="circle" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                      <text x="18" y="20.35" class="percentage">85%</text>
+                                    </svg>
+                                    <span class="chart-label">Compatibilidad</span>
+                                </div>
+                                <div class="dash-stats">
+                                    <div class="stat-row">
+                                        <span class="stat-indicator green"></span>
+                                        <span>Ruta: Micro-Agencia de Contenido</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-indicator yellow"></span>
+                                        <span>Presupuesto Mínimo: $30 USD</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-indicator blue"></span>
+                                        <span>Retorno Estimado: 21 Días</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dash-footer-list">
+                                <div class="dash-item active">Ruta Recomendada ✓</div>
+                                <div class="dash-item disabled">Dropshipping (Descartado: Alto Costo) ✕</div>
+                                <div class="dash-item disabled">Agencia Web Tradicional (Descartado: Mucho Tiempo) ✕</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 5: EL MÉTODO PASO A PASO -->
+    <section class="method-section bg-contrast">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">CÓMO FUNCIONA EL MÉTODO</h2>
+                <h3 class="section-subtitle">3 pasos simples para salir del estancamiento y llegar a tu primer activo</h3>
+            </div>
+
+            <div class="method-cards-grid">
+                <!-- Tarjeta 1 -->
+                <div class="method-card">
+                    <div class="card-step-badge">Paso 01</div>
+                    <h4 class="card-title">Diagnóstico de Recursos</h4>
+                    <p class="card-desc">Responde preguntas directas sobre cuánto dinero y tiempo real tienes para invertir.</p>
+                    <div class="card-icon-bg">01</div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="method-card">
+                    <div class="card-step-badge">Paso 02</div>
+                    <h4 class="card-title">Matriz de Compatibilidad</h4>
+                    <p class="card-desc">El sistema compara 15 caminos por costo, plazo y riesgo para localizar el más compatible contigo.</p>
+                    <div class="card-icon-bg">02</div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="method-card">
+                    <div class="card-step-badge">Paso 03</div>
+                    <h4 class="card-title">Ruta de 30 Días</h4>
+                    <p class="card-desc">Recibes un plan paso a paso con costo, plazo y la primera acción para empezar hoy.</p>
+                    <div class="card-icon-bg">03</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 6: URGENCIA -->
+    <section class="urgency-section bg-dark text-white">
+        <div class="container narrow text-center">
+            <h2 class="urgency-title">EL TIEMPO NO PAGA TUS CUENTAS</h2>
+            
+            <div class="urgency-body">
+                <p class="urgency-highlight">Un solo sueldo sigue siendo un solo punto de falla.</p>
+                <p>Los meses que pasaste investigando no construyeron una segunda fuente.</p>
+                <p class="urgency-footer-text">Hoy puedes elegir una ruta viable o abrir otro video y continuar en el mismo lugar.</p>
+            </div>
+            
+            <div class="urgency-cta">
+                <a href="#offer-section" class="btn btn-secondary scroll-to">OBTENER EL RADAR AHORA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 7: BONOS INCLUIDOS -->
+    <section class="bonus-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="bonus-alert-badge">SÓLO CON LA OFERTA DE HOY</span>
+                <h2 class="section-title">4 BONOS EXCLUSIVOS INCLUIDOS</h2>
+                <p class="section-intro-text">Diseñados para derribar todos los obstáculos de implementación.</p>
+            </div>
+
+            <div class="bonus-grid">
+                <!-- Tarjeta Bono 1 -->
+                <div class="bonus-card">
+                    <div class="bonus-tag">VALORADO EN $9</div>
+                    <div class="bonus-content-wrapper">
+                        <span class="bonus-number">BONO 1</span>
+                        <h4 class="bonus-title">RETORNO REAL</h4>
+                        <p class="bonus-subtitle-strong">Deja de poner dinero sin saber cuándo vuelve</p>
+                        <p class="bonus-desc">Calculadora que estima ventas, costos y punto de equilibrio según tu ruta.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Bono 2 -->
+                <div class="bonus-card">
+                    <div class="bonus-tag">VALORADO EN $9</div>
+                    <div class="bonus-content-wrapper">
+                        <span class="bonus-number">BONO 2</span>
+                        <h4 class="bonus-title">PRÓXIMO PASO</h4>
+                        <p class="bonus-subtitle-strong">Avanza hoy aunque tengas 15 minutos libres</p>
+                        <p class="bonus-desc">Generador que convierte tu resultado en una tarea breve y posible para hoy.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Bono 3 -->
+                <div class="bonus-card">
+                    <div class="bonus-tag">VALORADO EN $15</div>
+                    <div class="bonus-content-wrapper">
+                        <span class="bonus-number">BONO 3</span>
+                        <h4 class="bonus-title">CONTROL DE ARRANQUE</h4>
+                        <p class="bonus-subtitle-strong">Evita frenar por una cuenta o requisito olvidado</p>
+                        <p class="bonus-desc">Checklist interactivo que organiza herramientas, cuentas y requisitos de tu ruta.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Bono 4 -->
+                <div class="bonus-card">
+                    <div class="bonus-tag">VALORADO EN $12</div>
+                    <div class="bonus-content-wrapper">
+                        <span class="bonus-number">BONO 4</span>
+                        <h4 class="bonus-title">RECALIBRADOR MENSUAL</h4>
+                        <p class="bonus-subtitle-strong">Ajusta tu ruta cuando cambien tu tiempo o bolsillo</p>
+                        <p class="bonus-desc">Diagnóstico automático que recalcula tu plan sin obligarte a empezar desde cero.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 8: PRUEBA SOCIAL -->
+    <section class="testimonials-section bg-white border-top border-bottom">
+        <div class="container">
+            <h2 class="section-title text-center">LO QUE ESTÁN DICIENDO</h2>
+            
+            <div class="testimonials-grid">
+                <!-- Testimonio 1 -->
+                <div class="testimonial-card">
+                    <div class="rating-stars">★★★★★</div>
+                    <p class="testimonial-text">"Saltaba de video en video sin hacer nada. Cuando vi qué camino encajaba con mis 50 dólares, por fin empecé."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Claudio Ruiz</span>
+                        <span class="author-age">34 años</span>
+                    </div>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="testimonial-card">
+                    <div class="rating-stars">★★★★★</div>
+                    <p class="testimonial-text">"Me daba terror perder mis ahorros. El simulador me mostró el riesgo real y pude avanzar sin ansiedad."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Elena Valenzuela</span>
+                        <span class="author-age">29 años</span>
+                    </div>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="testimonial-card">
+                    <div class="rating-stars">★★★★★</div>
+                    <p class="testimonial-text">"Compré cursos carísimos de teoría. Esta herramienta me dio un paso a paso claro en cinco minutos."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Mateo Salazar</span>
+                        <span class="author-age">42 años</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testi-disclaimer">
+                <span>* Nota para desarrollo: Reemplazar con testimonios reales antes de publicar</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 9: RESUMEN DE LA OFERTA Y PRECIO -->
+    <section class="offer-section bg-contrast" id="offer-section">
+        <div class="container narrow">
+            <h2 class="section-title text-center">RESUMEN DE TU ACCESO</h2>
+            
+            <!-- Invoice/Ticket Styled Box -->
+            <div class="receipt-ticket">
+                <div class="receipt-header">
+                    <h3>FACTURA SIMULADA DE ACCESO</h3>
+                    <p>Soporte de Entrada Inmediata</p>
+                </div>
+                
+                <div class="receipt-body">
+                    <div class="receipt-row">
+                        <span class="item-name">Radar de Ingresos (Acceso Completo)</span>
+                        <span class="item-price">$ 39</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="item-name">Bono 1: Retorno Real</span>
+                        <span class="item-price">$ 9</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="item-name">Bono 2: Próximo Paso</span>
+                        <span class="item-price">$ 9</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="item-name">Bono 3: Control de Arranque</span>
+                        <span class="item-price">$ 15</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span class="item-name">Bono 4: Recalibrador Mensual</span>
+                        <span class="item-price">$ 12</span>
+                    </div>
+                    
+                    <div class="receipt-divider-dash"></div>
+                    
+                    <div class="receipt-row total-original">
+                        <span>Valor Total Real:</span>
+                        <span>$ 84</span>
+                    </div>
+                    
+                    <div class="receipt-row discount-row">
+                        <span>Descuento Aplicado Hoy:</span>
+                        <span>- $ 65</span>
+                    </div>
+                    
+                    <div class="receipt-divider-solid"></div>
+                    
+                    <div class="receipt-row price-final">
+                        <div class="final-text-stack">
+                            <span class="price-label">PRECIO DE HOY:</span>
+                            <span class="saving-badge">¡Ahorras un 77%!</span>
+                        </div>
+                        <span class="price-amount">$ 19</span>
+                    </div>
+                </div>
+                
+                <div class="receipt-footer">
+                    <div class="barcode"></div>
+                    <p class="barcode-number">RADAR-OFFER-2026-ACTIVE</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 10: GARANTÍA -->
+    <section class="guarantee-section bg-white">
+        <div class="container narrow text-center">
+            <div class="guarantee-box">
+                <div class="guarantee-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shield-check-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 11 11 13 15 9"></polyline></svg>
+                </div>
+                <h2 class="guarantee-title">GARANTÍA INCONDICIONAL DE 7 DÍAS</h2>
+                <p class="guarantee-desc">Si lo pruebas y sientes que no es para ti, te devolvemos tu dinero. Sin preguntas incómodas. Sin trámites.</p>
+                
+                <div class="guarantee-actions">
+                    <button class="btn btn-primary btn-pulse cta-checkout-trigger">
+                        PROBAR MI RUTA SIN RIESGO
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 11: PREGUNTAS FRECUENTES (Acordeón) -->
+    <section class="faq-section bg-contrast">
+        <div class="container narrow">
+            <h2 class="section-title text-center">PREGUNTAS FRECUENTES</h2>
+            
+            <div class="faq-accordion">
+                <!-- Pregunta 1 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Cómo accedo?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Acceso inmediato después de la compra, directo desde tu navegador.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Es un curso en video?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>No. Es una herramienta interactiva que diagnostica tu perfil y te entrega un plan listo.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Cuánto tiempo toma ver resultados?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Recibes tu recomendación en 5 minutos y un plan para los próximos 30 días. El tiempo para generar ingresos depende de la ruta y tu ejecución.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Necesito experiencia previa?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>No. El sistema filtra los caminos complejos y te recomienda opciones viables para principiantes.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Funciona en el celular?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Sí, está diseñado específicamente para usarse desde el celular.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 6 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Y si tengo muy poco dinero para invertir?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>La herramienta descarta los caminos fuera de tu presupuesto y prioriza alternativas de bajo costo.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 7 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Me garantiza que voy a ganar dinero?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>No. Te ayuda a elegir y planificar con supuestos visibles, pero ningún ingreso está garantizado.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 8 -->
+                <div class="faq-item">
+                    <button class="faq-trigger" aria-expanded="false">
+                        <span>¿Y si dos caminos parecen buenos para mí?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Recibes una recomendación principal y una alternativa para comparar costo, tiempo y riesgo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 12: CIERRE Y CTA FINAL -->
+    <section class="footer-cta-section bg-brand-dark">
+        <div class="container text-center">
+            <span class="cta-banner-tag">ACCESO INSTANTÁNEO POR $19</span>
+            <h2 class="footer-cta-title">DEJA DE TEMER DEPENDER DE UN SOLO SUELDO</h2>
+            
+            <div class="footer-paragraphs">
+                <p>Merecías dormir sin que perder el trabajo te dejara sin salida.</p>
+                <p>Merecías saber qué construir después del sueldo.</p>
+                <p class="final-lead-text">Hoy es el día de dejar de saltar entre ideas y empezar tu segunda fuente.</p>
+            </div>
+
+            <div class="footer-cta-actions">
+                <button class="btn btn-primary btn-pulse btn-lg cta-checkout-trigger">
+                    EMPEZAR MI SEGUNDA FUENTE
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+            
+            <p class="guarantee-footer-notice">Garantía incondicional de reembolso por 7 días.</p>
+        </div>
+    </section>
+
+    <footer class="footer-legal">
+        <div class="container text-center">
+            <p>&copy; 2026 Radar de Ingresos. Todos los derechos reservados.</p>
+            <p class="legal-disclaimer">Este producto no garantiza la obtención de ingresos. Todo emprendimiento conlleva riesgos y dedicación de tiempo. La información aquí presentada se fundamenta en simulaciones de modelos económicos de libre acceso.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive simulation checkout modal -->
+    <div id="checkout-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <button id="modal-close" class="modal-close-btn">&times;</button>
+            <div class="modal-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+                <span>RADAR DE INGRESOS</span>
+            </div>
+            <h3>¡Excelente elección de seguridad!</h3>
+            <p class="modal-text">Estás a punto de desbloquear tu Matriz de Compatibilidad Financiera completa con los 15 caminos analizados, además de tus 4 bonificaciones de arranque.</p>
+            
+            <div class="modal-price-box">
+                <span>Total a pagar:</span>
+                <span class="modal-price">$19 USD</span>
+            </div>
+
+            <!-- Simulating secure payment -->
+            <div class="checkout-form-sim">
+                <div class="form-group">
+                    <label for="checkout-email">Correo Electrónico para el Envío:</label>
+                    <input type="email" id="checkout-email" placeholder="tu@email.com" class="input-style">
+                </div>
+                <div class="payment-methods">
+                    <span class="payment-badge active">Tarjeta de Crédito</span>
+                    <span class="payment-badge">PayPal</span>
+                    <span class="payment-badge">Pago Local</span>
+                </div>
+                <button type="button" id="btn-pay-sim" class="btn-pay-sim-style">CONTINUAR AL COMPROMISO DE ACCESO</button>
+            </div>
+            
+            <div class="modal-security">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Pago procesado de forma 100% segura</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script file -->
+    <script src="script.js"></script>
+</body>
+</html>
