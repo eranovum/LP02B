@@ -110,6 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         simResult.classList.remove('hidden');
                         
+                        // Meta Pixel conversion event
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'Lead', {
+                                content_name: 'Simulacion de Compatibilidad',
+                                content_category: pathName
+                            });
+                        }
+                        
                         // Scroll suave al resultado
                         simResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
@@ -171,6 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger.addEventListener('click', () => {
             checkoutModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevenir scroll trasero
+            
+            // Meta Pixel conversion event
+            if (typeof fbq === 'function') {
+                fbq('track', 'InitiateCheckout', {
+                    value: 19.00,
+                    currency: currentCurrency
+                });
+            }
         });
     });
 
@@ -218,6 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnPaySim.textContent = 'CREANDO ACCESO AL SISTEMA...';
                 
                 setTimeout(() => {
+                    // Meta Pixel conversion event
+                    if (typeof fbq === 'function') {
+                        fbq('track', 'Purchase', {
+                            value: 19.00,
+                            currency: currentCurrency,
+                            content_name: 'Radar de Ingresos'
+                        });
+                    }
                     closeModalFunc();
                     alert(`¡Éxito! Hemos enviado la confirmación y tus credenciales de acceso para "Radar de Ingresos" al correo: ${email}.\n\n(Esta es una simulación de alta conversión creada para Radar de Ingresos)`);
                     btnPaySim.disabled = false;
