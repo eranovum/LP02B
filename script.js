@@ -235,6 +235,32 @@ document.addEventListener('DOMContentLoaded', () => {
         let exchangeRate = 1.0;
         let userLocale = navigator.language || 'es-ES';
 
+        // Mapeo completo de países de América (Norte a Sur) y España
+        const countryToCurrency = {
+            'ES': 'EUR', // España
+            'MX': 'MXN', // México
+            'CO': 'COP', // Colombia
+            'AR': 'ARS', // Argentina
+            'CL': 'CLP', // Chile
+            'PE': 'PEN', // Perú
+            'VE': 'VES', // Venezuela
+            'UY': 'UYU', // Uruguay
+            'EC': 'USD', // Ecuador
+            'BO': 'BOB', // Bolivia
+            'PY': 'PYG', // Paraguay
+            'CR': 'CRC', // Costa Rica
+            'PA': 'USD', // Panamá
+            'GT': 'GTQ', // Guatemala
+            'HN': 'HNL', // Honduras
+            'SV': 'USD', // El Salvador
+            'NI': 'NIO', // Nicaragua
+            'DO': 'DOP', // República Dominicana
+            'PR': 'USD', // Puerto Rico
+            'US': 'USD', // Estados Unidos
+            'CA': 'CAD', // Canadá
+            'BR': 'BRL'  // Brasil
+        };
+
         // Fallbacks de tasas de cambio estáticas por si falla la API
         const fallbackRates = {
             'USD': 1.0,
@@ -246,49 +272,94 @@ document.addEventListener('DOMContentLoaded', () => {
             'PEN': 3.75,
             'BRL': 5.50,
             'UYU': 40.0,
-            'VES': 36.5
+            'VES': 36.5,
+            'CAD': 1.37,
+            'BOB': 6.90,
+            'PYG': 7500,
+            'CRC': 525,
+            'GTQ': 7.75,
+            'HNL': 24.6,
+            'NIO': 36.8,
+            'DOP': 59.0
         };
 
-        // Fallbacks de monedas basados en Zona Horaria
+        // 1. Prioridad: Detectar por el idioma/región del navegador (navigator.language)
+        function getCountryFromNavigator() {
+            try {
+                const lang = navigator.language || (navigator.languages && navigator.languages[0]);
+                if (lang && lang.includes('-')) {
+                    const parts = lang.split('-');
+                    const country = parts[parts.length - 1].toUpperCase();
+                    if (countryToCurrency[country]) {
+                        return country;
+                    }
+                }
+            } catch (e) {
+                // Ignore
+            }
+            return null;
+        }
+
+        // 2. Prioridad: Detectar por la zona horaria del sistema
         function getCurrencyByTimezone() {
             try {
                 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (!tz) return { currency: 'USD', country: 'US' };
+                if (!tz) return null;
                 
-                if (tz.includes('Bogota')) return { currency: 'COP', country: 'CO' };
-                if (tz.includes('Mexico')) return { currency: 'MXN', country: 'MX' };
-                if (tz.includes('Santiago')) return { currency: 'CLP', country: 'CL' };
-                if (tz.includes('Buenos_Aires')) return { currency: 'ARS', country: 'AR' };
-                if (tz.includes('Lima')) return { currency: 'PEN', country: 'PE' };
-                if (tz.includes('Montevideo')) return { currency: 'UYU', country: 'UY' };
-                if (tz.includes('Caracas')) return { currency: 'VES', country: 'VE' };
-                if (tz.includes('Sao_Paulo')) return { currency: 'BRL', country: 'BR' };
-                if (tz.includes('Europe') || tz.includes('Madrid') || tz.includes('Paris') || tz.includes('Rome')) {
-                    return { currency: 'EUR', country: 'ES' };
-                }
+                if (tz.includes('Bogota')) return 'COP';
+                if (tz.includes('Mexico') || tz.includes('Chihuahua') || tz.includes('Monterrey') || tz.includes('Merida')) return 'MXN';
+                if (tz.includes('Santiago')) return 'CLP';
+                if (tz.includes('Buenos_Aires') || tz.includes('Cordoba') || tz.includes('Tucuman') || tz.includes('Salta')) return 'ARS';
+                if (tz.includes('Lima')) return 'PEN';
+                if (tz.includes('Caracas')) return 'VES';
+                if (tz.includes('Montevideo')) return 'UYU';
+                if (tz.includes('Asuncion')) return 'PYG';
+                if (tz.includes('La_Paz')) return 'BOB';
+                if (tz.includes('Guayaquil') || tz.includes('Galapagos')) return 'USD';
+                if (tz.includes('Panama')) return 'USD';
+                if (tz.includes('Costa_Rica')) return 'CRC';
+                if (tz.includes('Guatemala')) return 'GTQ';
+                if (tz.includes('Tegucigalpa')) return 'HNL';
+                if (tz.includes('El_Salvador')) return 'USD';
+                if (tz.includes('Managua')) return 'NIO';
+                if (tz.includes('Santo_Domingo')) return 'DOP';
+                if (tz.includes('Madrid') || tz.includes('Canary') || tz.includes('Europe') || tz.includes('Paris') || tz.includes('Rome')) return 'EUR';
+                if (tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('Montreal') || tz.includes('Winnipeg') || tz.includes('Edmonton')) return 'CAD';
+                if (tz.includes('Sao_Paulo') || tz.includes('Rio') || tz.includes('Manaus') || tz.includes('Recife') || tz.includes('Belem')) return 'BRL';
             } catch(e) {
                 // Ignore
             }
-            return { currency: 'USD', country: 'US' };
+            return null;
         }
 
-        // 1. Detectar ubicación del usuario
-        try {
-            const geoRes = await fetch('https://ipapi.co/json/');
-            if (geoRes.ok) {
-                const geoData = await geoRes.json();
-                if (geoData.currency) {
-                    localCurrency = geoData.currency;
-                    countryCode = geoData.country_code;
-                }
+        // Ejecutar estrategia de detección en orden de prioridad
+        let detectedCountry = getCountryFromNavigator();
+        if (detectedCountry) {
+            localCurrency = countryToCurrency[detectedCountry];
+            countryCode = detectedCountry;
+        } else {
+            let tzCurrency = getCurrencyByTimezone();
+            if (tzCurrency) {
+                localCurrency = tzCurrency;
+                // Buscar el primer país que usa esa moneda
+                countryCode = Object.keys(countryToCurrency).find(key => countryToCurrency[key] === tzCurrency) || 'US';
             } else {
-                throw new Error('Error en geolocalización');
+                // 3. Fallback: Intentar IP Geolocation si lo anterior falla
+                try {
+                    const geoRes = await fetch('https://ipapi.co/json/');
+                    if (geoRes.ok) {
+                        const geoData = await geoRes.json();
+                        if (geoData.currency) {
+                            localCurrency = geoData.currency;
+                            countryCode = geoData.country_code || 'US';
+                        }
+                    }
+                } catch (e) {
+                    // Si todo falla, mantenemos USD
+                    localCurrency = 'USD';
+                    countryCode = 'US';
+                }
             }
-        } catch (e) {
-            // Usar timezone fallback si falla el fetch de IP
-            const fallbackGeo = getCurrencyByTimezone();
-            localCurrency = fallbackGeo.currency;
-            countryCode = fallbackGeo.country;
         }
 
         // Si la moneda sigue siendo USD, no convertimos nada (ya está en USD)
