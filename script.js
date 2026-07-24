@@ -215,4 +215,131 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
         });
     }
+
+    // 5. CONVERSIÓN DE DIVISAS EN TIEMPO REAL
+    async function initCurrencyConversion() {
+        let localCurrency = 'USD';
+        let countryCode = 'US';
+        let exchangeRate = 1.0;
+        let userLocale = navigator.language || 'es-ES';
+
+        // Fallbacks de tasas de cambio estáticas por si falla la API
+        const fallbackRates = {
+            'USD': 1.0,
+            'EUR': 0.92,
+            'COP': 4000,
+            'MXN': 18.0,
+            'ARS': 900,
+            'CLP': 920,
+            'PEN': 3.75,
+            'BRL': 5.50,
+            'UYU': 40.0,
+            'VES': 36.5
+        };
+
+        // Fallbacks de monedas basados en Zona Horaria
+        function getCurrencyByTimezone() {
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (!tz) return { currency: 'USD', country: 'US' };
+                
+                if (tz.includes('Bogota')) return { currency: 'COP', country: 'CO' };
+                if (tz.includes('Mexico')) return { currency: 'MXN', country: 'MX' };
+                if (tz.includes('Santiago')) return { currency: 'CLP', country: 'CL' };
+                if (tz.includes('Buenos_Aires')) return { currency: 'ARS', country: 'AR' };
+                if (tz.includes('Lima')) return { currency: 'PEN', country: 'PE' };
+                if (tz.includes('Montevideo')) return { currency: 'UYU', country: 'UY' };
+                if (tz.includes('Caracas')) return { currency: 'VES', country: 'VE' };
+                if (tz.includes('Sao_Paulo')) return { currency: 'BRL', country: 'BR' };
+                if (tz.includes('Europe') || tz.includes('Madrid') || tz.includes('Paris') || tz.includes('Rome')) {
+                    return { currency: 'EUR', country: 'ES' };
+                }
+            } catch(e) {
+                // Ignore
+            }
+            return { currency: 'USD', country: 'US' };
+        }
+
+        // 1. Detectar ubicación del usuario
+        try {
+            const geoRes = await fetch('https://ipapi.co/json/');
+            if (geoRes.ok) {
+                const geoData = await geoRes.json();
+                if (geoData.currency) {
+                    localCurrency = geoData.currency;
+                    countryCode = geoData.country_code;
+                }
+            } else {
+                throw new Error('Error en geolocalización');
+            }
+        } catch (e) {
+            // Usar timezone fallback si falla el fetch de IP
+            const fallbackGeo = getCurrencyByTimezone();
+            localCurrency = fallbackGeo.currency;
+            countryCode = fallbackGeo.country;
+        }
+
+        // Si la moneda sigue siendo USD, no convertimos nada (ya está en USD)
+        if (localCurrency === 'USD') return;
+
+        // 2. Obtener tasas de cambio en vivo
+        try {
+            const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
+            if (rateRes.ok) {
+                const rateData = await rateRes.json();
+                if (rateData.rates && rateData.rates[localCurrency]) {
+                    exchangeRate = rateData.rates[localCurrency];
+                } else {
+                    exchangeRate = fallbackRates[localCurrency] || 1.0;
+                }
+            } else {
+                throw new Error('Error en API de tasas');
+            }
+        } catch (e) {
+            exchangeRate = fallbackRates[localCurrency] || 1.0;
+        }
+
+        // Formateador localizado de moneda
+        const formatter = new Intl.NumberFormat(userLocale, {
+            style: 'currency',
+            currency: localCurrency,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+
+        // 3. Aplicar conversión en los elementos de la página
+        // Elementos con data-usd
+        const priceElements = document.querySelectorAll('[data-usd]');
+        priceElements.forEach(el => {
+            const usdValue = parseFloat(el.getAttribute('data-usd'));
+            if (!isNaN(usdValue)) {
+                const convertedValue = usdValue * exchangeRate;
+                const formatted = formatter.format(convertedValue);
+                
+                // Actualizar según la clase o el formato deseado
+                if (el.classList.contains('old-price')) {
+                    el.textContent = `De ${formatted}`;
+                } else if (el.classList.contains('new-price')) {
+                    el.textContent = `por ${formatted}`;
+                } else if (el.classList.contains('item-price-discount')) {
+                    el.textContent = `- ${formatted}`;
+                } else if (el.classList.contains('modal-price')) {
+                    el.textContent = `${formatted} ${localCurrency}`;
+                } else {
+                    el.textContent = formatted;
+                }
+            }
+        });
+
+        // Mostrar disclaimer de conversión
+        const disclaimer = document.getElementById('currency-disclaimer');
+        const detectedCurrSpan = document.getElementById('detected-currency');
+        if (disclaimer && detectedCurrSpan) {
+            detectedCurrSpan.textContent = `${localCurrency} (${formatter.format(19 * exchangeRate)})`;
+            disclaimer.classList.remove('hidden');
+        }
+    }
+
+    // Ejecutar conversión
+    initCurrencyConversion();
 });

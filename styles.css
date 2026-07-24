@@ -1690,3 +1690,11 @@ h3.section-subtitle-small {
         margin: 20px auto 0 auto;
     }
 }
+
+.currency-disclaimer {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 16px;
+    font-style: italic;
+}

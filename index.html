@@ -50,9 +50,9 @@
 
                     <div class="hero-pricing-box">
                         <div class="price-comparison">
-                            <span class="old-price">De $84</span>
+                            <span class="old-price" data-usd="84">De $84</span>
                             <span class="arrow-right">→</span>
-                            <span class="new-price">por $19</span>
+                            <span class="new-price" data-usd="19">por $19</span>
                         </div>
                         <p class="price-copy">Menos de lo que gastas en café para dejar de saltar entre videos y empezar a construir seguridad.</p>
                     </div>
@@ -178,7 +178,7 @@
         </div>
     </section>
 
-    <!-- BLOQUE 4: PRESENTACIÓN DE LA SOLUCIÓN AND EL MECANISMO -->
+    <!-- BLOQUE 4: PRESENTACIÓN DE LA SOLUCIÓN Y EL MECANISMO -->
     <section class="solution-section bg-white border-top">
         <div class="container">
             <div class="solution-grid">
@@ -417,35 +417,35 @@
                 <div class="receipt-body">
                     <div class="receipt-row">
                         <span class="item-name">Radar de Ingresos (Acceso Completo)</span>
-                        <span class="item-price">$ 39</span>
+                        <span class="item-price" data-usd="39">$ 39</span>
                     </div>
                     <div class="receipt-row">
                         <span class="item-name">Bono 1: Retorno Real</span>
-                        <span class="item-price">$ 9</span>
+                        <span class="item-price" data-usd="9">$ 9</span>
                     </div>
                     <div class="receipt-row">
                         <span class="item-name">Bono 2: Próximo Paso</span>
-                        <span class="item-price">$ 9</span>
+                        <span class="item-price" data-usd="9">$ 9</span>
                     </div>
                     <div class="receipt-row">
                         <span class="item-name">Bono 3: Control de Arranque</span>
-                        <span class="item-price">$ 15</span>
+                        <span class="item-price" data-usd="15">$ 15</span>
                     </div>
                     <div class="receipt-row">
                         <span class="item-name">Bono 4: Recalibrador Mensual</span>
-                        <span class="item-price">$ 12</span>
+                        <span class="item-price" data-usd="12">$ 12</span>
                     </div>
                     
                     <div class="receipt-divider-dash"></div>
                     
                     <div class="receipt-row total-original">
                         <span>Valor Total Real:</span>
-                        <span>$ 84</span>
+                        <span class="item-price" data-usd="84">$ 84</span>
                     </div>
                     
                     <div class="receipt-row discount-row">
                         <span>Descuento Aplicado Hoy:</span>
-                        <span>- $ 65</span>
+                        <span class="item-price-discount" data-usd="65">- $ 65</span>
                     </div>
                     
                     <div class="receipt-divider-solid"></div>
@@ -455,8 +455,9 @@
                             <span class="price-label">PRECIO DE HOY:</span>
                             <span class="saving-badge">¡Ahorras un 77%!</span>
                         </div>
-                        <span class="price-amount">$ 19</span>
+                        <span class="price-amount" data-usd="19">$ 19</span>
                     </div>
+                    <p class="currency-disclaimer hidden" id="currency-disclaimer">Precio aproximado en <span id="detected-currency">USD</span> (Tipo de cambio actualizado automáticamente)</p>
                 </div>
                 
                 <div class="receipt-footer">
@@ -627,7 +628,7 @@
             
             <div class="modal-price-box">
                 <span>Total a pagar:</span>
-                <span class="modal-price">$19 USD</span>
+                <span class="modal-price" data-usd="19">$19 USD</span>
             </div>
 
             <!-- Simulating secure payment -->
