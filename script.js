@@ -4,6 +4,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Variables globales dentro de DOMContentLoaded para soportar divisas en tiempo real
+    let currentExchangeRate = 1.0;
+    let currentCurrency = 'USD';
+    let currentFormatter = new Intl.NumberFormat(navigator.language || 'es-ES', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
     // 1. MINI-SIMULADOR INTERACTIVO (HERO WIDGET)
     const budgetSlider = document.getElementById('budget-slider');
     const budgetVal = document.getElementById('budget-val');
@@ -22,11 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
         budgetSlider.addEventListener('input', (e) => {
             const val = e.target.value;
             if (parseInt(val) === 0) {
-                budgetVal.textContent = '$0 (Bajo Costo)';
+                budgetVal.textContent = currentFormatter.format(0) + (currentCurrency === 'USD' ? ' (Bajo Costo)' : '');
             } else if (parseInt(val) === 1000) {
-                budgetVal.textContent = '$1,000+ USD';
+                const maxVal = 1000 * currentExchangeRate;
+                budgetVal.textContent = `${currentFormatter.format(maxVal)}+` + (currentCurrency === 'USD' ? '' : ` ${currentCurrency}`);
             } else {
-                budgetVal.textContent = `$${val} USD`;
+                const localVal = parseInt(val) * currentExchangeRate;
+                budgetVal.textContent = currentFormatter.format(localVal) + (currentCurrency === 'USD' ? '' : ` ${currentCurrency}`);
             }
         });
 
@@ -307,6 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
             maximumFractionDigits: 0
         });
 
+        // Actualizar variables compartidas globales de DOMContentLoaded
+        currentExchangeRate = exchangeRate;
+        currentCurrency = localCurrency;
+        currentFormatter = formatter;
+
         // 3. Aplicar conversión en los elementos de la página
         // Elementos con data-usd
         const priceElements = document.querySelectorAll('[data-usd]');
@@ -330,6 +347,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+
+        // Actualizar etiquetas del slider
+        const labelMin = document.getElementById('slider-label-min');
+        const labelMax = document.getElementById('slider-label-max');
+        if (labelMin) {
+            labelMin.textContent = formatter.format(0) + (localCurrency === 'USD' ? ' (Bajo Costo)' : '');
+        }
+        if (labelMax) {
+            labelMax.textContent = `${formatter.format(1000 * exchangeRate)}+`;
+        }
+
+        // Forzar actualización inicial del valor del slider con la nueva moneda
+        if (budgetSlider) {
+            budgetSlider.dispatchEvent(new Event('input'));
+        }
 
         // Mostrar disclaimer de conversión
         const disclaimer = document.getElementById('currency-disclaimer');

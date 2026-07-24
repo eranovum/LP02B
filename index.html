@@ -79,8 +79,8 @@
                                 <label for="budget-slider">Presupuesto Inicial disponible: <span id="budget-val" class="highlight-val">$100 USD</span></label>
                                 <input type="range" id="budget-slider" min="0" max="1000" step="50" value="100" class="slider">
                                 <div class="slider-labels">
-                                    <span>$0 (Bajo Costo)</span>
-                                    <span>$1,000+</span>
+                                    <span id="slider-label-min">$0 (Bajo Costo)</span>
+                                    <span id="slider-label-max">$1,000+</span>
                                 </div>
                             </div>
 
@@ -229,7 +229,7 @@
                                     </div>
                                     <div class="stat-row">
                                         <span class="stat-indicator yellow"></span>
-                                        <span>Presupuesto Mínimo: $30 USD</span>
+                                        <span>Presupuesto Mínimo: <span data-usd="30">$30 USD</span></span>
                                     </div>
                                     <div class="stat-row">
                                         <span class="stat-indicator blue"></span>
@@ -314,7 +314,7 @@
             <div class="bonus-grid">
                 <!-- Tarjeta Bono 1 -->
                 <div class="bonus-card">
-                    <div class="bonus-tag">VALORADO EN $9</div>
+                    <div class="bonus-tag">VALORADO EN <span data-usd="9">$9</span></div>
                     <div class="bonus-content-wrapper">
                         <span class="bonus-number">BONO 1</span>
                         <h4 class="bonus-title">RETORNO REAL</h4>
@@ -325,7 +325,7 @@
 
                 <!-- Tarjeta Bono 2 -->
                 <div class="bonus-card">
-                    <div class="bonus-tag">VALORADO EN $9</div>
+                    <div class="bonus-tag">VALORADO EN <span data-usd="9">$9</span></div>
                     <div class="bonus-content-wrapper">
                         <span class="bonus-number">BONO 2</span>
                         <h4 class="bonus-title">PRÓXIMO PASO</h4>
@@ -336,7 +336,7 @@
 
                 <!-- Tarjeta Bono 3 -->
                 <div class="bonus-card">
-                    <div class="bonus-tag">VALORADO EN $15</div>
+                    <div class="bonus-tag">VALORADO EN <span data-usd="15">$15</span></div>
                     <div class="bonus-content-wrapper">
                         <span class="bonus-number">BONO 3</span>
                         <h4 class="bonus-title">CONTROL DE ARRANQUE</h4>
@@ -347,7 +347,7 @@
 
                 <!-- Tarjeta Bono 4 -->
                 <div class="bonus-card">
-                    <div class="bonus-tag">VALORADO EN $12</div>
+                    <div class="bonus-tag">VALORADO EN <span data-usd="12">$12</span></div>
                     <div class="bonus-content-wrapper">
                         <span class="bonus-number">BONO 4</span>
                         <h4 class="bonus-title">RECALIBRADOR MENSUAL</h4>
@@ -588,7 +588,7 @@
     <!-- BLOQUE 12: CIERRE Y CTA FINAL -->
     <section class="footer-cta-section bg-brand-dark">
         <div class="container text-center">
-            <span class="cta-banner-tag">ACCESO INSTANTÁNEO POR $19</span>
+            <span class="cta-banner-tag">ACCESO INSTANTÁNEO POR <span data-usd="19">$19</span></span>
             <h2 class="footer-cta-title">DEJA DE TEMER DEPENDER DE UN SOLO SUELDO</h2>
             
             <div class="footer-paragraphs">
