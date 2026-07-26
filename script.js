@@ -174,12 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPaySim = document.getElementById('btn-pay-sim');
     const checkoutEmail = document.getElementById('checkout-email');
 
-    // Vincular todos los botones de compra al modal
+    // Vincular todos los botones de compra al pixel de Meta
     checkoutTriggers.forEach(trigger => {
         trigger.addEventListener('click', () => {
-            checkoutModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevenir scroll trasero
-            
             // Meta Pixel conversion event
             if (typeof fbq === 'function') {
                 fbq('track', 'InitiateCheckout', {
@@ -243,7 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
                     closeModalFunc();
-                    alert(`¡Éxito! Hemos enviado la confirmación y tus credenciales de acceso para "Radar de Ingresos" al correo: ${email}.\n\n(Esta es una simulación de alta conversión creada para Radar de Ingresos)`);
+                    alert(`¡Éxito! Hemos enviado la confirmación y tus credenciales de acceso para "Radar de Ingresos" al correo: ${email}.\n\n(Redirigiendo al checkout seguro...)`);
+                    window.location.href = 'https://pay.hotmart.com/J106866356A';
                     btnPaySim.disabled = false;
                     btnPaySim.textContent = 'CONTINUAR AL COMPROMISO DE ACCESO';
                     checkoutEmail.value = '';
