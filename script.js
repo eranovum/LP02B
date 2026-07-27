@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Meta Pixel conversion event
             if (typeof fbq === 'function') {
                 fbq('track', 'InitiateCheckout', {
-                    value: 19.00,
+                    value: 9.99,
                     currency: currentCurrency
                 });
             }
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Meta Pixel conversion event
                     if (typeof fbq === 'function') {
                         fbq('track', 'Purchase', {
-                            value: 19.00,
+                            value: 9.99,
                             currency: currentCurrency,
                             content_name: 'Radar de Ingresos'
                         });
@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const disclaimer = document.getElementById('currency-disclaimer');
         const detectedCurrSpan = document.getElementById('detected-currency');
         if (disclaimer && detectedCurrSpan) {
-            detectedCurrSpan.textContent = `${localCurrency} (${formatter.format(19 * exchangeRate)})`;
+            detectedCurrSpan.textContent = `${localCurrency} (${formatter.format(9.99 * exchangeRate)})`;
             disclaimer.classList.remove('hidden');
         }
     }
