@@ -194,6 +194,7 @@ h3.section-subtitle-small {
 .btn-pulse {
     position: relative;
     animation: buttonPulse 2s infinite;
+    will-change: box-shadow;
 }
 
 @keyframes buttonPulse {
@@ -1698,3 +1699,31 @@ h3.section-subtitle-small {
     margin-top: 16px;
     font-style: italic;
 }
+
+/* 19. SCROLL REVEAL OPTIMIZED ANIMATIONS */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    /* Touch-friendly range input hit target enhancements */
+    .slider {
+        height: 8px;
+        margin: 15px 0;
+    }
+    
+    .slider::-webkit-slider-thumb {
+        width: 28px !important;
+        height: 28px !important;
+        box-shadow: 0 0 14px rgba(204, 255, 0, 0.9) !important;
+    }
+}
+
