@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+    // 2. ACORDEÓN DE PREGUES FRECUENTES (FAQ)
     const faqTriggers = document.querySelectorAll('.faq-trigger');
     
     faqTriggers.forEach(trigger => {
@@ -250,79 +250,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. CONVERSIÓN DE DIVISAS EN TIEMPO REAL
+    // 5. CONVERSIÓN DE DIVISAS EN TIEMPO REAL CON CACHÉ LOCAL Y TIMEOUTS
     async function initCurrencyConversion() {
+        const CACHE_KEY_CURRENCY = 'radar_detected_currency';
+        const CACHE_KEY_RATE = 'radar_exchange_rate';
+        const CACHE_KEY_TIME = 'radar_cache_timestamp';
+        const CACHE_EXPIRY = 12 * 60 * 60 * 1000; // 12 horas en milisegundos
+
         let localCurrency = 'USD';
-        let countryCode = 'US';
         let exchangeRate = 1.0;
         let userLocale = navigator.language || 'es-ES';
 
         // Mapeo completo de países de América (Norte a Sur) y España
         const countryToCurrency = {
-            'ES': 'EUR', // España
-            'MX': 'MXN', // México
-            'CO': 'COP', // Colombia
-            'AR': 'ARS', // Argentina
-            'CL': 'CLP', // Chile
-            'PE': 'PEN', // Perú
-            'VE': 'VES', // Venezuela
-            'UY': 'UYU', // Uruguay
-            'EC': 'USD', // Ecuador
-            'BO': 'BOB', // Bolivia
-            'PY': 'PYG', // Paraguay
-            'CR': 'CRC', // Costa Rica
-            'PA': 'USD', // Panamá
-            'GT': 'GTQ', // Guatemala
-            'HN': 'HNL', // Honduras
-            'SV': 'USD', // El Salvador
-            'NI': 'NIO', // Nicaragua
-            'DO': 'DOP', // República Dominicana
-            'PR': 'USD', // Puerto Rico
-            'US': 'USD', // Estados Unidos
-            'CA': 'CAD', // Canadá
-            'BR': 'BRL'  // Brasil
+            'ES': 'EUR', 'MX': 'MXN', 'CO': 'COP', 'AR': 'ARS', 'CL': 'CLP',
+            'PE': 'PEN', 'VE': 'VES', 'UY': 'UYU', 'EC': 'USD', 'BO': 'BOB',
+            'PY': 'PYG', 'CR': 'CRC', 'PA': 'USD', 'GT': 'GTQ', 'HN': 'HNL',
+            'SV': 'USD', 'NI': 'NIO', 'DO': 'DOP', 'PR': 'USD', 'US': 'USD',
+            'CA': 'CAD', 'BR': 'BRL'
         };
 
-        // Fallbacks de tasas de cambio estáticas por si falla la API
         const fallbackRates = {
-            'USD': 1.0,
-            'EUR': 0.92,
-            'COP': 4000,
-            'MXN': 18.0,
-            'ARS': 900,
-            'CLP': 920,
-            'PEN': 3.75,
-            'BRL': 5.50,
-            'UYU': 40.0,
-            'VES': 36.5,
-            'CAD': 1.37,
-            'BOB': 6.90,
-            'PYG': 7500,
-            'CRC': 525,
-            'GTQ': 7.75,
-            'HNL': 24.6,
-            'NIO': 36.8,
-            'DOP': 59.0
+            'USD': 1.0, 'EUR': 0.92, 'COP': 4000, 'MXN': 18.0, 'ARS': 900,
+            'CLP': 920, 'PEN': 3.75, 'BRL': 5.50, 'UYU': 40.0, 'VES': 36.5,
+            'CAD': 1.37, 'BOB': 6.90, 'PYG': 7500, 'CRC': 525, 'GTQ': 7.75,
+            'HNL': 24.6, 'NIO': 36.8, 'DOP': 59.0
         };
 
-        // 1. Prioridad: Detectar por el idioma/región del navegador (navigator.language)
+        // Función para realizar fetch con timeout
+        async function fetchWithTimeout(resource, timeout = 1500) {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            try {
+                const response = await fetch(resource, { signal: controller.signal });
+                clearTimeout(id);
+                return response;
+            } catch (error) {
+                clearTimeout(id);
+                throw error;
+            }
+        }
+
+        // 1. Intentar cargar desde caché para visualización instantánea (WPO)
+        const cachedCurrency = localStorage.getItem(CACHE_KEY_CURRENCY);
+        const cachedRate = parseFloat(localStorage.getItem(CACHE_KEY_RATE));
+        const cachedTime = parseInt(localStorage.getItem(CACHE_KEY_TIME));
+        const now = Date.now();
+
+        if (cachedCurrency && !isNaN(cachedRate) && cachedTime && (now - cachedTime < CACHE_EXPIRY)) {
+            localCurrency = cachedCurrency;
+            exchangeRate = cachedRate;
+            applyPrices(localCurrency, exchangeRate, userLocale);
+            return;
+        }
+
+        // 2. Si no hay caché válido, correr estrategia de detección
         function getCountryFromNavigator() {
             try {
                 const lang = navigator.language || (navigator.languages && navigator.languages[0]);
                 if (lang && lang.includes('-')) {
                     const parts = lang.split('-');
                     const country = parts[parts.length - 1].toUpperCase();
-                    if (countryToCurrency[country]) {
-                        return country;
-                    }
+                    if (countryToCurrency[country]) return country;
                 }
-            } catch (e) {
-                // Ignore
-            }
+            } catch (e) {}
             return null;
         }
 
-        // 2. Prioridad: Detectar por la zona horaria del sistema
         function getCurrencyByTimezone() {
             try {
                 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -348,63 +342,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (tz.includes('Madrid') || tz.includes('Canary') || tz.includes('Europe') || tz.includes('Paris') || tz.includes('Rome')) return 'EUR';
                 if (tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('Montreal') || tz.includes('Winnipeg') || tz.includes('Edmonton')) return 'CAD';
                 if (tz.includes('Sao_Paulo') || tz.includes('Rio') || tz.includes('Manaus') || tz.includes('Recife') || tz.includes('Belem')) return 'BRL';
-            } catch(e) {
-                // Ignore
-            }
+            } catch(e) {}
             return null;
         }
 
-        // Ejecutar estrategia de detección en orden de prioridad
         let detectedCountry = getCountryFromNavigator();
         if (detectedCountry) {
             localCurrency = countryToCurrency[detectedCountry];
-            countryCode = detectedCountry;
         } else {
             let tzCurrency = getCurrencyByTimezone();
             if (tzCurrency) {
                 localCurrency = tzCurrency;
-                // Buscar el primer país que usa esa moneda
-                countryCode = Object.keys(countryToCurrency).find(key => countryToCurrency[key] === tzCurrency) || 'US';
             } else {
-                // 3. Fallback: Intentar IP Geolocation si lo anterior falla
+                // Fallback: IP Geolocation con Timeout
                 try {
-                    const geoRes = await fetch('https://ipapi.co/json/');
+                    const geoRes = await fetchWithTimeout('https://ipapi.co/json/', 1500);
                     if (geoRes.ok) {
                         const geoData = await geoRes.json();
                         if (geoData.currency) {
                             localCurrency = geoData.currency;
-                            countryCode = geoData.country_code || 'US';
                         }
                     }
                 } catch (e) {
-                    // Si todo falla, mantenemos USD
                     localCurrency = 'USD';
-                    countryCode = 'US';
                 }
             }
         }
 
-        // Si la moneda sigue siendo USD, no convertimos nada (ya está en USD)
-        if (localCurrency === 'USD') return;
-
-        // 2. Obtener tasas de cambio en vivo
-        try {
-            const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
-            if (rateRes.ok) {
-                const rateData = await rateRes.json();
-                if (rateData.rates && rateData.rates[localCurrency]) {
-                    exchangeRate = rateData.rates[localCurrency];
+        // Obtener tasas de cambio en vivo con Timeout
+        if (localCurrency !== 'USD') {
+            try {
+                const rateRes = await fetchWithTimeout('https://open.er-api.com/v6/latest/USD', 1500);
+                if (rateRes.ok) {
+                    const rateData = await rateRes.json();
+                    if (rateData.rates && rateData.rates[localCurrency]) {
+                        exchangeRate = rateData.rates[localCurrency];
+                    } else {
+                        exchangeRate = fallbackRates[localCurrency] || 1.0;
+                    }
                 } else {
                     exchangeRate = fallbackRates[localCurrency] || 1.0;
                 }
-            } else {
-                throw new Error('Error en API de tasas');
+            } catch (e) {
+                exchangeRate = fallbackRates[localCurrency] || 1.0;
             }
-        } catch (e) {
-            exchangeRate = fallbackRates[localCurrency] || 1.0;
         }
 
-        // Formateador localizado de moneda
+        // Guardar en localStorage para cargas instantáneas subsecuentes
+        try {
+            localStorage.setItem(CACHE_KEY_CURRENCY, localCurrency);
+            localStorage.setItem(CACHE_KEY_RATE, exchangeRate.toString());
+            localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
+        } catch(e) {}
+
+        applyPrices(localCurrency, exchangeRate, userLocale);
+    }
+
+    function applyPrices(localCurrency, exchangeRate, userLocale) {
         const formatter = new Intl.NumberFormat(userLocale, {
             style: 'currency',
             currency: localCurrency,
@@ -417,8 +411,15 @@ document.addEventListener('DOMContentLoaded', () => {
         currentCurrency = localCurrency;
         currentFormatter = formatter;
 
-        // 3. Aplicar conversión en los elementos de la página
-        // Elementos con data-usd
+        // Si la moneda es USD, las etiquetas se mantendrán por defecto pero forzamos la actualización de sliders
+        if (localCurrency === 'USD') {
+            if (budgetSlider) {
+                budgetSlider.dispatchEvent(new Event('input'));
+            }
+            return;
+        }
+
+        // Aplicar conversión en los elementos con data-usd
         const priceElements = document.querySelectorAll('[data-usd]');
         priceElements.forEach(el => {
             const usdValue = parseFloat(el.getAttribute('data-usd'));
@@ -426,7 +427,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const convertedValue = usdValue * exchangeRate;
                 const formatted = formatter.format(convertedValue);
                 
-                // Actualizar según la clase o el formato deseado
                 if (el.classList.contains('old-price')) {
                     el.textContent = `De ${formatted}`;
                 } else if (el.classList.contains('new-price')) {
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const labelMin = document.getElementById('slider-label-min');
         const labelMax = document.getElementById('slider-label-max');
         if (labelMin) {
-            labelMin.textContent = formatter.format(0) + (localCurrency === 'USD' ? ' (Bajo Costo)' : '');
+            labelMin.textContent = formatter.format(0);
         }
         if (labelMax) {
             labelMax.textContent = `${formatter.format(1000 * exchangeRate)}+`;
@@ -465,6 +465,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Ejecutar conversión
+    // Ejecutar conversión de divisas
     initCurrencyConversion();
+
+    // 6. SCROLL REVEAL DINÁMICO (Intersection Observer)
+    const revealElements = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Revelar solo una vez por rendimiento
+                }
+            });
+        }, {
+            threshold: 0.08, // Disparador temprano
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        // Fallback si no está soportado en navegadores viejos
+        revealElements.forEach(el => el.classList.add('active'));
+    }
 });
